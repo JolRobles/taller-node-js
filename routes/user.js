@@ -26,12 +26,13 @@ app.get("/user", [verificar_token], (req, res) => {
 app.post("/user", (req, res) => {
     let body = req.body;
     let userGuardar = new User({
-        name: body.name,
-        lastName: body.lastName,
+        firstName: body.firstName,
+        secondName: body.secondName,
+        firstSurname: body.firstSurname,
+        secondSurname: body.secondSurname,
         email: body.email,
-        userName: body.userName,
+        username: body.username,
         password: bcrypt.hashSync(body.password, 10),
-        age: body.age,
         rol: body.rol
     });
 
@@ -61,12 +62,13 @@ app.put("/user/:id", verificar_token, (req, res) => {
     let body = req.body;
 
     let usuarioPorEditar = {
-        name: body.name,
-        lastName: body.lastName,
+        firstName: body.firstName,
+        secondName: body.secondName,
+        firstSurname: body.firstSurname,
+        secondSurname: body.secondSurname,
         email: body.email,
-        userName: body.userName,
+        username: body.username,
         password: body.password,
-        age: body.age,
         rol: body.rol
     };
 

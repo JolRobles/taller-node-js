@@ -5,7 +5,7 @@ const Rol = require('../models/rol');
 app.get('/rol', (req, res) => {
     Rol.find({
         state: true
-    }).exec((err, rolDB) => {
+    }).exec((err, roles) => {
         if (err) {
             return res.status(500).json({
                 ok: false,
@@ -14,7 +14,7 @@ app.get('/rol', (req, res) => {
         }
         res.status(200).json({
             ok: true,
-            rolDB
+            roles
         })
     });
 });
@@ -24,25 +24,24 @@ app.post('/rol', (req, res) => {
 
     let rolParaGuardar = new Rol({
         name: body.name,
-        description: body.description
     });
 
-    rolParaGuardar.save((err, rolDB) => {
+    rolParaGuardar.save((err, roles) => {
         if (err) {
             return res.status(500).json({
                 ok: false,
                 err
             });
         }
-        if (!rolDB) {
+        if (!roles) {
             return res.status(400).json({
                 ok: false,
-                rolDB
+                roles
             });
         }
         res.status(200).json({
             ok: true,
-            rolDB
+            roles
         });
     });
 })
@@ -54,28 +53,27 @@ app.put('/rol/:id', (req, res) => {
 
     let rolPorEditar = {
         name: body.name,
-        description: body.description
     }
 
     Rol.findByIdAndUpdate(id, rolPorEditar, {
         new: true,
         runValidators: true
-    }, (err, rolDB) => {
+    }, (err, roles) => {
         if (err) {
             return res.status(500).json({
                 ok: false,
                 err
             });
         }
-        if (!rolDB) {
+        if (!roles) {
             return res.status(400).json({
                 ok: false,
-                rolDB
+                roles
             });
         }
         res.status(200).json({
             ok: true,
-            rolDB
+            roles
         })
 
     });
@@ -90,21 +88,21 @@ app.delete('/rol/:id', (req, res) => {
     Rol.findByIdAndUpdate(id, rolState, {
         new: true,
         runValidators: true
-    }, (err, rolDB) => {
+    }, (err, roles) => {
         if (err) {
             return res.status(500).json({
                 ok: false,
                 err
             })
         }
-        if (!rolDB) {
+        if (!roles) {
             ok: false,
-            rolDB
+            roles
         }
 
         res.status(200).json({
             ok: true,
-            rolDB
+            roles
         })
     })
 
